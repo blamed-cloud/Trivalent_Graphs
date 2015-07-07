@@ -16,7 +16,14 @@ class Graph {
 
 	private:
 		vector<vector<int> > al;
-		const int size;
+		vector<vector<int> > am;
+		const int size;		
+		int signed_coloring_number;
+		int number_of_three_colorings;
+
+		void compute_colorings();
+		void compute_colorings_recurse();
+		int edge_is_forced(int v1, int v2);
 		
 friend ostream& operator<<(ostream& os, const Graph g);
 };
