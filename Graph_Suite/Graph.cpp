@@ -7,8 +7,13 @@ Graph::Graph(vector<vector<int> > el, const int s)
 	:size(s)
 {
 	al = vector<vector<int> >(size);
+	am = vector<vector<int> >(size);
 	for(int i(0); i<size; i++){
 		al[i] = vector<int>();
+		am[i] = vector<int>(size);
+		for(int j(0); j<size; j++){
+			am[i][j] = 0;
+		}
 	}
 
 	for(int i(0); i<el.size(); i++){
@@ -17,11 +22,15 @@ Graph::Graph(vector<vector<int> > el, const int s)
 			int v2 = el[i][1];
 			al[v1].push_back(v2);
 			al[v2].push_back(v1);
+			am[v1][v2] = 1;
+			am[v2][v1] = 1;
 		}
 	}
 }
 
-vector<int> Graph::connectedComponentSizes(){
+
+
+bool Graph::isConnected(){
 	vector<int> flagged(size,0);
 	queue<int> q;
 	vector<int> sizes;
@@ -48,8 +57,9 @@ vector<int> Graph::connectedComponentSizes(){
 			sizes.push_back(count);
 		}
 	}
-	return sizes;
+	return (sizes.size()<2);
 }
+
 
 int Graph::getSize(){
 	return size;

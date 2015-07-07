@@ -10,12 +10,13 @@ class Graph {
 	
 	public:
 		Graph(vector< vector<int> > el, const int size);
-		vector<int> connectedComponentSizes();
+		bool isConnected();
 		
 		int getSize();
 
 	private:
 		vector<vector<int> > al;
+		vector<vector<int> > am;
 		const int size;
 		
 friend ostream& operator<<(ostream& os, const Graph g);
