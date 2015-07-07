@@ -15,6 +15,7 @@ class Graph {
 
 	private:
 		void setConnectivity();
+		void setPlanarity();
 
 		vector<vector<int> > al;
 		vector<vector<int> > am;
@@ -22,6 +23,7 @@ class Graph {
 		int connectivity;
 		int is_circle_cross_prime;
 		int is_connected;
+		int is_planar;
 		const int size;
 		
 friend ostream& operator<<(ostream& os, const Graph g);

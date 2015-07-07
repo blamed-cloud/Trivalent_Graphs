@@ -2,6 +2,8 @@
 #include<queue>
 #include<unordered_set>
 #include<algorithm>
+#include<boost/graph/adjacency_list.hpp>
+#include<boost/graph/boyer_myrvold_planar_test.hpp>
 
 using namespace std;
 
@@ -30,6 +32,25 @@ Graph::Graph(vector<vector<int> > el, const int s)
 			am[v2][v1] = 1;
 		}
 	}
+}
+
+void Graph::setPlanarity(){
+	using namespace boost;
+
+	typedef adjacency_list<vecS,
+				vecS,
+				undirectedS,
+				property<vertex_index_t, int>
+				> graph;
+
+	graph g(size);
+
+	for(int i(0); i<el.size(); i++){
+		add_edge(el[i][0],el[i][1],g);
+	}
+	
+	is_planar = boyer_myrvold_planarity_test(g);
+
 }
 
 void Graph::setConnectivity(){
