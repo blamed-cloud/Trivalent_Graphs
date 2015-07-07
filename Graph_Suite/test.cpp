@@ -3,10 +3,12 @@
 #include<string>
 #include<vector>
 #include<iostream>
+#include<sstream>
 
 int main(){
 	//string s = "0 1  0 2  0 3  1 2  1 3  2 3";
 	string s = "0 3  0 4  0 5  1 3  1 4  1 5  2 3  2 4  2 5";
+	stringstream ss;
 	const int size = 6;
 	vector<vector<int> > v(size);
 	
@@ -43,5 +45,17 @@ int main(){
 	
 	cout << "\n" << g << endl;
 	
-	//cout << g << endl;
+	cout << endl;
+	int v1,v2,sz;
+	cin >> sz;
+	while((cin >> v1 >> v2)){
+		ss << v1 << " " << v2 << "  ";
+	}
+	
+	v = EdgelistFromString(ss.str(),sz);
+	Graph g2(v,sz);
+
+	//cout << ss.str() << endl;
+	cout << g2 << endl;
+	cout << "sz = " << sz << endl;
 }
