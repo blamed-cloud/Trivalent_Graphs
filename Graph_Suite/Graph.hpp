@@ -10,13 +10,18 @@ class Graph {
 	
 	public:
 		Graph(vector< vector<int> > el, const int size);
-		bool isConnected();
-		
+		int isConnected();
 		int getSize();
 
 	private:
+		void setConnectivity();
+
 		vector<vector<int> > al;
 		vector<vector<int> > am;
+		vector<vector<int> > el;
+		int connectivity;
+		int is_circle_cross_prime;
+		int is_connected;
 		const int size;
 		
 friend ostream& operator<<(ostream& os, const Graph g);
