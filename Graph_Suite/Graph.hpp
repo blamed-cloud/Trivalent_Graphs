@@ -19,6 +19,7 @@ class Graph {
 		void compute_colorings();
 		void compute_colorings_recurse();
 		int edge_is_forced(int v1, int v2);
+		void print_am();
 
 		vector<vector<int> > al;
 		vector<vector<int> > am;
@@ -30,7 +31,6 @@ class Graph {
 		const int size;
 		int signed_coloring_number;
 		int number_of_three_colorings;
-
 		
 friend ostream& operator<<(ostream& os, const Graph g);
 };

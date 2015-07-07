@@ -13,7 +13,6 @@ Graph::Graph(vector<vector<int> > el, const int s)
 	, number_of_three_colorings(0)
 	, signed_coloring_number(0)
 {
-	
 	al = vector<vector<int> >(size);
 	am = vector<vector<int> >(size);
 	for(int i(0); i<size; i++){
@@ -197,13 +196,7 @@ void Graph::compute_colorings()
 			am[0][i] = color;
 			am[i][0] = color;
 /*-------------------------------------*/
-	for(int iii(0); iii<am.size(); iii++){
-		for(int jjj(0); jjj<am[iii].size(); jjj++){
-			cout << am[iii][jjj];
-		}
-		cout<<endl;
-	}
-cout<<endl;
+			print_am();
 /*-------------------------------------*/
 			color++;
 		}
@@ -217,13 +210,7 @@ cout<<endl;
 			{
 				am[i][j] = 1;
 /*-------------------------------------*/
-	for(int iii(0); iii<am.size(); iii++){
-		for(int jjj(0); jjj<am[iii].size(); jjj++){
-			cout << am[iii][jjj];
-		}
-		cout<<endl;
-	}
-cout<<endl;
+				print_am();
 /*-------------------------------------*/
 			}
 		}
@@ -232,22 +219,10 @@ cout<<endl;
 
 void Graph::compute_colorings_recurse()
 {
-	//POINT 1" << endl;
-	
-	
-	
-	
-	
-	
-	
 	vector<vector<int> > change_list;
 	bool changed = true;
 	bool contradiction = false;
 	bool fully_colored = true;
-	//POINT 2" << endl;
-	
-	
-	
 	while (!contradiction && changed)
 	{
 		changed = false;
@@ -256,7 +231,6 @@ void Graph::compute_colorings_recurse()
 			for( int j = 0; j < am[i].size(); j++)
 			{
 				int color = edge_is_forced(i,j);
-				cout << "COLOR = "<<color<<endl;
 				
 				if (color == -1)
 				{
@@ -267,13 +241,7 @@ void Graph::compute_colorings_recurse()
 					am[i][j] = color;
 					am[j][i] = color;
 /*-------------------------------------*/
-	for(int iii(0); iii<am.size(); iii++){
-		for(int jjj(0); jjj<am[iii].size(); jjj++){
-			cout << am[iii][jjj];
-		}
-		cout<<endl;
-	}
-cout<<endl;
+					print_am();
 /*-------------------------------------*/
 					vector<int> pair;
 					pair.push_back(i);
@@ -284,9 +252,6 @@ cout<<endl;
 			}
 		}
 	}
-	//POINT 3" << endl;
-	
-	
 	
 	if (!contradiction)
 	{
@@ -304,10 +269,6 @@ cout<<endl;
 	else {
 		fully_colored = false;
 	}
-
-	//POINT 4" << endl;
-	
-	
 	
 	if (fully_colored)
 	{
@@ -323,41 +284,26 @@ cout<<endl;
 					colors.push(am[i][j]);
 				}
 			}
-			//POINT 5" << endl;
-	
-	
-	
 			while (colors.front() != 2)
 			{
 				int temp = colors.front();
 				colors.pop();
 				colors.push(temp);
 			}
-			//POINT 6" << endl;
-	
-	
-	
 			colors.pop();
 			if (colors.front() == 4)
 			{
 				sign_of_coloring *= -1;
 			}
 		}
-		//POINT 7" << endl;
-	
-	
-	
 		signed_coloring_number += sign_of_coloring;
 	}
+	
 	if (!contradiction && !fully_colored)
 	{
 		int row = 0;
 		int col = 0;
 		int color = 0;
-		//POINT 8" << endl;
-	
-	
-	
 		for( int i = 0; i < am.size(); i++)
 		{
 			int num = 0;
@@ -375,10 +321,6 @@ cout<<endl;
 					temp_col = j;
 				}
 			}
-			//POINT 9" << endl;
-	
-	
-	
 			if (num == 1)
 			{
 				row = i;
@@ -396,33 +338,13 @@ cout<<endl;
 				am[row][col] = c;
 				am[col][row] = c;
 /*-------------------------------------*/
-	for(int iii(0); iii<am.size(); iii++){
-		for(int jjj(0); jjj<am[iii].size(); jjj++){
-			cout << am[iii][jjj];
-		}
-		cout<<endl;
-	}
-cout<<endl;
+				print_am();
 /*-------------------------------------*/
-				//POINT 10" << endl;
-	
-	
-	
 				compute_colorings_recurse();
-				//POINT 11" << endl;
-	
-	
-	
 				am[row][col] = 1;
 				am[col][row] = 1;
 /*-------------------------------------*/
-	for(int iii(0); iii<am.size(); iii++){
-		for(int jjj(0); jjj<am[iii].size(); jjj++){
-			cout << am[iii][jjj];
-		}
-		cout<<endl;
-	}
-cout<<endl;
+				print_am();
 /*-------------------------------------*/
 				tried_colors[c] = 1;
 			}
@@ -437,37 +359,24 @@ cout<<endl;
 		am[edge[0]][edge[1]] = 1;
 		am[edge[1]][edge[0]] = 1;
 /*-------------------------------------*/
-	for(int iii(0); iii<am.size(); iii++){
-		for(int jjj(0); jjj<am[iii].size(); jjj++){
-			cout << am[iii][jjj];
-		}
-		cout<<endl;
-	}
-cout<<endl;
+		print_am();
 /*-------------------------------------*/
 	}
 }
 
 int Graph::edge_is_forced(int v1, int v2)
 {
-	//POINT A" << endl;
-	//POINT ASDF 1" << endl;
 	int value = 0;
 	if (am[v1][v2] == 0)
 	{
-		//POINT B'" << endl;
 		return 0;
 	}
-	//POINT ASDF 2" << endl;
 	unordered_set<int> colors_v1;
 	unordered_set<int> colors_v2;
 	unordered_set<int> colors_both;
-	//unordered_set<int> possible_colors;
-	//POINT ASDF 3" << endl;
 	vector<int> pc = {-1234,-1234,0,0,0};
 	if (am[v1][v2] > 1)
 	{
-		//possible_colors.insert(am[v1][v2]);
 		pc[am[v1][v2]] = 1;
 	}
 	else
@@ -477,119 +386,86 @@ int Graph::edge_is_forced(int v1, int v2)
 		pc[4] = 1;
 	}
 	
-	//POINT ASDF 4" << endl;
 	for( int j = 0; j < am[v1].size(); j++)
 	{
-		//POINT ASDF 5" << endl;
 		if (j != v2)
 		{
 			if (am[v1][j] > 1)
 			{
-				cout << "INSERTING " << am[v1][j] << " into colors_v1 , v1 = "<< v1 << " j = "<<j<<endl;
 				colors_v1.insert(am[v1][j]);
 				colors_both.insert(am[v1][j]);
 			}
 		}
 	}
 	
-		//POINT ASDF 6" << endl;
 	for(int j = 0; j < am[v2].size(); j++)
 	{
-		//POINT ASDF 7A" << " j = "<< j << " am[v2].size() = "<<am[v2].size()<< " v2 = "<<v2 << endl;
 		if (j != v1)
 		{
 			if (am[v2][j] > 1)
 			{
-				//POINT ASDF 7B" << endl;
 				colors_v2.insert(am[v2][j]);
 				colors_both.insert(am[v2][j]);
 			}
 		}
 	}
 	
-	//POINT ASDF 8" << endl;
 	if (colors_v1.size() == 2)
 	{
-	//POINT ASDF 9" << endl;
 		for(int c : colors_v1)
 		{
-			cout << "c = "<<c<<endl;cout.flush();
 			pc[c] = 0;
-			//unordered_set<int>::iterator iter = possible_colors.find(c);
-			//if (iter != possible_colors.end())
-			//{
-				//possible_colors.erase(iter);	
-			//}
 		}
 	}
 	
-	//POINT ASDF 10" << endl;
 	if (colors_v2.size() == 2)
 	{
-	//POINT ASDF 11" << endl;
 		for(int c : colors_v2)
 		{
-			cout << "c = "<<c<<endl;cout.flush();
 			pc[c] = 0;
-			//unordered_set<int>::iterator iter = possible_colors.find(c);
-			//if (iter != possible_colors.end())
-			//{
-				//possible_colors.erase(iter);	
-			//}
 		}
 	}
 	
-	//POINT ASDF 12" << endl;
 	if (colors_both.size() >= 2)
 	{
-	//POINT ASDF 13" << endl;
 		for(int c : colors_both)
 		{
-	//POINT ASDF 14" << endl;
-			cout << "c = "<<c<<endl;cout.flush();
 			pc[c] = 0;
-	//POINT ASDF 15" << endl;
-			//unordered_set<int>::iterator iter = possible_colors.find(c);
-			//if (iter != possible_colors.end())
-	//POINT ASDF 16" << endl;
-			//{
-				//possible_colors.erase(iter);	
-	//POINT ASDF 17" << endl;
-			//}
 		}
-	//POINT ASDF 18" << endl;
 	}
 	
-	//POINT ASDF 19" << endl;
-	if(!pc[2] && !pc[3] && !pc[4]/*possible_colors.size() == 0*/)
+	if(!pc[2] && !pc[3] && !pc[4])
 	{
-	//POINT ASDF 20" << endl;
 		value = -1;
-	//POINT ASDF 21" << endl;
 	}
-	else if ((pc[2] + pc[3] + pc[4] ) == 1/*possible_colors.size() == 1*/)
+	else if ((pc[2] + pc[3] + pc[4] ) == 1)
 	{
-	//POINT ASDF 22" << endl;
-		//for( int c : possible_colors)
-		//{
-	//POINT ASDF 23" << endl;
-			//value = c;
-		//}
-	//POINT ASDF 24" << endl;
 		value = pc[2]*2 + pc[3]*3 + pc[4]*4;
 	}
-	//POINT ASDF 25" << endl;
 	
-	//POINT ASDF 26" << endl;
-	//POINT B" << endl;
-	if(value > 1 && value == am[v1][v2]){
+	if(value > 1 && value == am[v1][v2])
+	{
 		value = 0;
 	}
+	
 	return value;
 }
 
 int Graph::getSize(){
 	return size;
+}
+
+void Graph::print_am()
+{
+	for(int iii = 0; iii < am.size(); iii++)
+	{
+		for(int jjj = 0; jjj < am[iii].size(); jjj++)
+		{
+			cout << am[iii][jjj];
+		}
+		cout << endl;
+	}
+	cout << endl;
 }
 
 
