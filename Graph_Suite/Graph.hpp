@@ -16,6 +16,9 @@ class Graph {
 	private:
 		void setConnectivity();
 		void setPlanarity();
+		void compute_colorings();
+		void compute_colorings_recurse();
+		int edge_is_forced(int v1, int v2);
 
 		vector<vector<int> > al;
 		vector<vector<int> > am;
@@ -25,6 +28,9 @@ class Graph {
 		int is_connected;
 		int is_planar;
 		const int size;
+		int signed_coloring_number;
+		int number_of_three_colorings;
+
 		
 friend ostream& operator<<(ostream& os, const Graph g);
 };
