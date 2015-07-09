@@ -37,12 +37,12 @@ Graph::Graph(vector<vector<int> > el, const int s)
 	setConnectivity();
 	setPlanarity();
 	compute_colorings();
-	for(int i(0); i<am.size(); i++){
-		for(int j(0); j<am[i].size(); j++){
-			cout << am[i][j] ;
-		}
-		cout << endl;
-	}
+	//for(int i(0); i<am.size(); i++){
+		//for(int j(0); j<am[i].size(); j++){
+			//cout << am[i][j] ;
+		//}
+		//cout << endl;
+	//}
 }
 
 void Graph::setPlanarity(){
@@ -196,7 +196,7 @@ void Graph::compute_colorings()
 			am[0][i] = color;
 			am[i][0] = color;
 /*-------------------------------------*/
-			print_am();
+			//print_am();
 /*-------------------------------------*/
 			color++;
 		}
@@ -210,7 +210,7 @@ void Graph::compute_colorings()
 			{
 				am[i][j] = 1;
 /*-------------------------------------*/
-				print_am();
+				//print_am();
 /*-------------------------------------*/
 			}
 		}
@@ -241,7 +241,7 @@ void Graph::compute_colorings_recurse()
 					am[i][j] = color;
 					am[j][i] = color;
 /*-------------------------------------*/
-					print_am();
+					//print_am();
 /*-------------------------------------*/
 					vector<int> pair;
 					pair.push_back(i);
@@ -338,13 +338,13 @@ void Graph::compute_colorings_recurse()
 				am[row][col] = c;
 				am[col][row] = c;
 /*-------------------------------------*/
-				print_am();
+				//print_am();
 /*-------------------------------------*/
 				compute_colorings_recurse();
 				am[row][col] = 1;
 				am[col][row] = 1;
 /*-------------------------------------*/
-				print_am();
+				//print_am();
 /*-------------------------------------*/
 				tried_colors[c] = 1;
 			}
@@ -359,7 +359,7 @@ void Graph::compute_colorings_recurse()
 		am[edge[0]][edge[1]] = 1;
 		am[edge[1]][edge[0]] = 1;
 /*-------------------------------------*/
-		print_am();
+		//print_am();
 /*-------------------------------------*/
 	}
 }

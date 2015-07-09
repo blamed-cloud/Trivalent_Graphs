@@ -4,6 +4,8 @@
 #include<vector>
 #include<iostream>
 #include<sstream>
+#include<time.h>
+#include<stdio.h>
 
 int main(){
 	stringstream ss;
@@ -16,7 +18,12 @@ int main(){
 	}
 	
 	v = EdgelistFromString(ss.str(),sz);
+	clock_t start = clock(), diff;
 	Graph g2(v,sz);
+	diff = clock() - start;
+
+	int msec = diff * 1000 / CLOCKS_PER_SEC;
+	printf("Time taken %d seconds %d milliseconds\n", msec/1000, msec%1000);
 
 	cout << g2 << endl;
 }
